@@ -1,0 +1,28 @@
+{% macro render_content(items) %}
+<div>
+  {% for item in items %}
+  <div class="card mt-3 text-center bg-light">
+    <h3>{{ item.name }}</h3>
+    <p class="text-secondary">{{ item.price }}₽</p>
+    <p class="text-muted">{% if item.stock > 0 %}В наличии: {{ item.stock }}{% else %}Нет в наличии{% endif %}</p>
+    <form action="{{ url_for('investments.add_to_basket') }}" method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="prod_id" value="{{ item.id }}">
+      <input type="submit" class="btn btn-warning btn-lg text-light mb-2" value="Добавить в заказ"{% if item.stock <= 0 %} disabled{% endif %}>
+    </form>
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{% macro render_basket(lines) %}
+<div>
+  {% for line in lines %}
+  <div class="card mt-3 bg-light">
+    <h5>Название позиции: {{ line.name }}</h5>
+    <p class="text-secondary m-0 p-0">Цена: {{ line.unit_price }}₽ · Сумма: {{ line.total }}₽</p>
+    <p class="text-muted m-0 p-0">Количество: {{ line.quantity }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}

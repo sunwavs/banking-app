@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container text-center">
+  <div class="row">
+    {% for endpoint, caption in menu %}
+      <div class="col-md-12 mx-auto my-auto">
+        <a class="btn btn-warning btn-lg text-light mt-5" href="{{ url_for(endpoint) }}">{{ caption }}</a>
+      </div>
+    {% endfor %}
+  </div>
+  <a class="btn btn-warning btn-lg text-light mt-5" href="{{ url_for('lk.index') }}">Назад</a>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{# Month names; "selected" is the number of the month to preselect #}
+{% macro month_options(selected=none) %}
+<option value="1"{% if selected == 1 %} selected{% endif %}>Январь</option>
+<option value="2"{% if selected == 2 %} selected{% endif %}>Февраль</option>
+<option value="3"{% if selected == 3 %} selected{% endif %}>Март</option>
+<option value="4"{% if selected == 4 %} selected{% endif %}>Апрель</option>
+<option value="5"{% if selected == 5 %} selected{% endif %}>Май</option>
+<option value="6"{% if selected == 6 %} selected{% endif %}>Июнь</option>
+<option value="7"{% if selected == 7 %} selected{% endif %}>Июль</option>
+<option value="8"{% if selected == 8 %} selected{% endif %}>Август</option>
+<option value="9"{% if selected == 9 %} selected{% endif %}>Сентябрь</option>
+<option value="10"{% if selected == 10 %} selected{% endif %}>Октябрь</option>
+<option value="11"{% if selected == 11 %} selected{% endif %}>Ноябрь</option>
+<option value="12"{% if selected == 12 %} selected{% endif %}>Декабрь</option>
+{% endmacro %}

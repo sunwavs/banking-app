@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block navbar %}{% endblock %}
+{% block content %}
+<div class="container h-100 my-5 mx-auto">
+  <div class="row">
+    <div class="col-md-6 mt-5 text-center">
+      <img src="{{ url_for('static', filename='img/login.jpg') }}" class="img-fluid" alt="Вперёд к звёздам!">
+    </div>
+    <div class="col-md-3 mt-5">
+      <h1 class="display-3 mt-5">Вход</h1>
+      <form method="post" action="{{ url_for('lk.login') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="mb-3">
+          <label for="login" class="form-label">Логин</label>
+          <input type="text" id="login" name="login" class="form-control form-control-lg border border-warning"
+                 placeholder="login" autocomplete="username" required>
+        </div>
+        <div class="mb-3 mt-5">
+          <label for="password" class="form-label">Пароль</label>
+          <input type="password" id="password" name="password" class="form-control form-control-lg border border-warning"
+                 placeholder="********" autocomplete="current-password" required>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <button type="submit" class="btn btn-warning btn-lg text-light mt-5">Войти</button>
+          </div>
+          <div class="col-md-4">
+            <a class="btn btn-warning btn-lg text-light mt-5" href="{{ url_for('main.index') }}">На главную</a>
+          </div>
+        </div>
+        {% if err_message %}
+          <div class="alert alert-danger mt-3" role="alert">{{ err_message }}</div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

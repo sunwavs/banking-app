@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+{% import 'lk/card.html' as card %}
+{% macro logout_button() %}
+  <form action="{{ url_for('lk.logout') }}" method="post" class="d-inline">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="btn btn-warning btn-lg text-light">Выйти из личного кабинета</button>
+  </form>
+{% endmacro %}
+<div class="row">
+  {% if current_user.contract_num is not none %}
+    <div class="col-md-6">
+      {% if cards_data %}
+        {{ card.render_card(cards_data) }}
+      {% else %}
+        <div class="accounts-empty">
+          <h2 class="alert alert-warning fs-5 fw-light">У вас пока нет счетов</h2>
+        </div>
+      {% endif %}
+    </div>
+    <div class="col-md-6">
+      <div class="row mx-auto my-auto">
+        <div class="col-md-12 mt-5">{{ logout_button() }}</div>
+        {% if has_permission('search.view') %}
+        <div class="col-md-12 mt-5">
+          <a class="btn btn-warning btn-lg text-light" href="{{ url_for('search.index') }}">Перейти к работе с запросами</a>
+        </div>
+        {% endif %}
+        {% if has_permission('transfer.make') %}
+        <div class="col-md-12 mt-5">
+          <a class="btn btn-warning btn-lg text-light" href="{{ url_for('transfer.index') }}">Сделать перевод</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <div class="col-md-12 mt-5 text-center">{{ logout_button() }}</div>
+    {% if has_permission('reports.view') %}
+    <div class="col-md-12 mt-5 text-center">
+      <a class="btn btn-warning btn-lg text-light" href="{{ url_for('reports.index') }}">Перейти к работе с отчётами</a>
+    </div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

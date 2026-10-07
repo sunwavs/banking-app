@@ -1,0 +1,7 @@
+/* Application styles. Kept in a file (no inline styles) so that the Content-Security-Policy can forbid them. */
+
+.error-logo { width: 30%; }
+.page-center { min-height: 60vh; }
+.report-container { max-width: 600px; }
+.account-card { max-width: 360px; border-radius: 5%; }
+.accounts-empty { margin-left: 2em; }

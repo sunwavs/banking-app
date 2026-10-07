@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Звёздный банк{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/ref.png') }}">
+</head>
+<body>
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <a href="{{ url_for('main.index') }}" class="navbar-brand">
+    <img src="{{ url_for('static', filename='img/ref.png') }}" width="75" height="75" alt="Звёздный банк">
+  </a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">На главную</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('lk.index') }}">Личный кабинет</a></li>
+      {% if has_permission('investments.use') %}
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('investments.index') }}">Инвестиции</a></li>
+      {% endif %}
+      {% if has_permission('reports.view') %}
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('reports.index') }}">Отчёты</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+<hr>
+{% endblock %}
+
+<div class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category if category in ('success', 'warning', 'danger', 'info') else 'info' }}" role="alert">{{ message }}</div>
+    {% endfor %}
+  {% endwith %}
+</div>
+
+<main>
+{% block content %}{% endblock %}
+</main>
+
+<script src="{{ url_for('static', filename='vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>

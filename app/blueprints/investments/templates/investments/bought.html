@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center">
+  <h1>Заказ подтверждён!</h1>
+  {% if order_id %}<p>Номер заказа: {{ order_id }}</p>{% endif %}
+  <a class="btn btn-warning btn-lg text-light mt-5" href="{{ url_for('investments.index') }}">Назад к каталогу</a>
+</div>
+{% endblock %}

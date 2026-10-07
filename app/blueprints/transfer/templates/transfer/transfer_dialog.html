@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if not accounts %}
+  <div class="container"><div class="alert alert-warning">У вас нет счетов, с которых можно сделать перевод.</div></div>
+{% else %}
+<div class="container text-center">
+  <h4>Выберите счёт для списания средств и введите номер счёта получателя:</h4>
+  <form action="{{ url_for('transfer.index') }}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="row text-center">
+      <div class="col-md-5 my-auto">
+        <label for="sender">Номер счёта списания:</label>
+        <select id="sender" name="sender">
+          {% for account in accounts %}
+            <option value="{{ account['account_num'] }}">{{ account['account_num'] }} ({{ account['balance'] }}₽)</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-5 offset-md-2 col-md-offset-2">
+        <label for="receiver">Номер счёта получателя</label>
+        <input type="text" id="receiver" name="receiver" maxlength="12" required>
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col-md-12 mt-5">
+        <label for="trans_sum">Сумма перевода</label>
+        <input type="text" id="trans_sum" name="trans_sum" inputmode="decimal" required>
+        <input type="submit" value="Совершить перевод">
+      </div>
+    </div>
+  </form>
+
+  {% if error %}
+    <div class="row text-center">
+      <div class="col-md-6 offset-md-3 mt-3">
+        <div class="alert alert-danger"><h2 class="fs-5 fw-light">{{ error }}</h2></div>
+      </div>
+    </div>
+  {% endif %}
+  <a class="btn btn-warning btn-lg text-light mt-5" href="{{ url_for('lk.index') }}">Назад</a>
+</div>
+{% endif %}
+{% endblock %}

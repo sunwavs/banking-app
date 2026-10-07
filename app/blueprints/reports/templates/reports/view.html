@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container report-container">
+  <h3>{{ report.title }}</h3>
+  <h5>Отчёт за: {{ period.strftime('%Y-%m') }}</h5>
+  <table class="table">
+    <thead><tr>
+      <th scope="col">Номер счёта</th>
+      <th scope="col">{{ report.value_header }}</th>
+    </tr></thead>
+    <tbody>
+      {% for item in rows %}
+        <tr><td>{{ item.account_num }}</td><td>{{ item.value }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="btn btn-warning text-light" href="{{ url_for('reports.report_list', slug=report.slug) }}">Назад</a>
+</div>
+{% endblock %}

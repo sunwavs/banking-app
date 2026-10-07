@@ -1,0 +1,4 @@
+-r requirements.txt
+pytest>=8.0,<10
+html5lib>=1.1,<2
+ruff>=0.16.10,<0.17

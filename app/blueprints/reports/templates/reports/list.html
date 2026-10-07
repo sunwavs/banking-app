@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="mt-1 text-center">
+  <h3>{{ report.title }}: созданные отчёты</h3>
+  {% for period, slug in periods %}
+    <a href="{{ url_for('reports.report_view', slug=report.slug, period=slug) }}">Отчёт за {{ period.strftime('%Y-%m') }}</a><br>
+  {% else %}
+    <p class="text-muted">Отчётов пока нет</p>
+  {% endfor %}
+  <div class="mt-3">
+    <a class="btn btn-warning text-light mt-1" href="{{ url_for('reports.index') }}">Назад</a>
+  </div>
+</div>
+{% endblock %}

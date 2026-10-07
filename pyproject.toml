@@ -1,0 +1,33 @@
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+extend-exclude = ["app/static"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",   # pycodestyle
+    "F",        # pyflakes
+    "I",        # import order
+    "UP",       # modern Python syntax
+    "B",        # likely bugs
+    "SIM",      # simplifications
+    "C4",       # comprehensions
+    "DTZ",      # naive datetimes
+    "S",        # security (bandit)
+    "RUF",
+    "PLW",
+]
+ignore = [
+    "RUF001", "RUF002", "RUF003",  # the user interface is in Russian: Cyrillic letters are intended
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = [
+    "S101",     # assert is how pytest tests are written
+    "S105", "S106",  # test passwords
+    "S608",     # SQL built from fixed strings in tests
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

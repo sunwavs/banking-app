@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center">
+  <h1>Меню выбора отчёта</h1>
+  {% for report in report_types %}
+  <div class="mt-5">
+    <h5>{{ report.title }}:</h5>
+    <div class="row mx-auto my-auto">
+      <div class="col-md-12">
+        <a class="btn btn-warning text-light" href="{{ url_for('reports.report_list', slug=report.slug) }}">Посмотреть существующие отчёты</a>
+      </div>
+      {% if has_permission('reports.create') %}
+      <div class="col-md-12">
+        <a class="btn btn-warning text-light mt-1" href="{{ url_for('reports.report_create', slug=report.slug) }}">Создать новый отчёт</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+  <a class="btn btn-warning btn-lg text-light mt-5" href="{{ url_for('lk.index') }}">Назад</a>
+</div>
+{% endblock %}

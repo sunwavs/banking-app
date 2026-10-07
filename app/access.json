@@ -1,0 +1,6 @@
+{
+  "external": ["search.view", "transfer.make", "investments.use"],
+  "manager":  ["reports.view"],
+  "analyst":  ["reports.view", "reports.create"],
+  "operator": []
+}
